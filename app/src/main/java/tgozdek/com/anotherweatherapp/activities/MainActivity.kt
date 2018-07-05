@@ -4,9 +4,13 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
+import org.jetbrains.anko.uiThread
 import tgozdek.com.anotherweatherapp.adapters.ForecastListAdapter
 import tgozdek.com.anotherweatherapp.R
+import tgozdek.com.anotherweatherapp.data.Request
 import tgozdek.com.anotherweatherapp.extensions.myToast
 
 class MainActivity : AppCompatActivity() {
@@ -21,12 +25,23 @@ class MainActivity : AppCompatActivity() {
         "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
         "Sun 6/29 - Sunny - 20/7")
 
+    val url = "http://api.openweathermap.org/data/2.5/forecast/daily?" +"APPID=15646a06818f61f7b8d7823ca833e1ce&q=94043&mode=json&units=metric&cnt=7"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        myToast("Initializing")
         initForecastList()
+        askAboutWeather()
+    }
+
+    private fun askAboutWeather() {
+        doAsync {
+            Request(url).run()
+            uiThread {
+                myToast("Request performed").show()
+            }
+        }
     }
 
     private fun initForecastList() {
