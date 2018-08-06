@@ -9,8 +9,7 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
 import tgozdek.com.anotherweatherapp.adapters.ForecastListAdapter
 import tgozdek.com.anotherweatherapp.R
-import tgozdek.com.anotherweatherapp.data.ForecastRequest
-import tgozdek.com.anotherweatherapp.extensions.myToast
+import tgozdek.com.anotherweatherapp.domain.commands.RequestForecastCommand
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,22 +29,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initForecastList()
-        askAboutWeather()
+        val forecastList : RecyclerView = find(R.id.forecast_list)
+        forecastList.layoutManager = LinearLayoutManager(this)
+
+        showWeatherInfo(forecastList)
     }
 
-    private fun askAboutWeather() {
+    private fun showWeatherInfo(forecastList: RecyclerView) {
         doAsync {
-            ForecastRequest(url).execute();
+            val forecastCommandResponse = RequestForecastCommand("94043").execute()
             uiThread {
-                myToast("ForecastRequest performed").show()
+                forecastList.adapter = ForecastListAdapter(forecastCommandResponse)
             }
         }
     }
 
-    private fun initForecastList() {
-        val forecastList : RecyclerView = find(R.id.forecast_list)
-        forecastList.layoutManager = LinearLayoutManager(this)
-        forecastList.adapter = ForecastListAdapter(items)
-    }
 }
