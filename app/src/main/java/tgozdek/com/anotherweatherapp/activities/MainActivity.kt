@@ -4,13 +4,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
 import tgozdek.com.anotherweatherapp.adapters.ForecastListAdapter
 import tgozdek.com.anotherweatherapp.R
-import tgozdek.com.anotherweatherapp.data.Request
+import tgozdek.com.anotherweatherapp.data.ForecastRequest
 import tgozdek.com.anotherweatherapp.extensions.myToast
 
 class MainActivity : AppCompatActivity() {
@@ -37,9 +36,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun askAboutWeather() {
         doAsync {
-            Request(url).run()
+            ForecastRequest(url).execute();
             uiThread {
-                myToast("Request performed").show()
+                myToast("ForecastRequest performed").show()
             }
         }
     }
