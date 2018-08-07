@@ -1,15 +1,17 @@
 package tgozdek.com.anotherweatherapp.ui.activities
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
-import tgozdek.com.anotherweatherapp.ui.adapters.ForecastListAdapter
 import tgozdek.com.anotherweatherapp.R
 import tgozdek.com.anotherweatherapp.domain.commands.RequestForecastCommand
+import tgozdek.com.anotherweatherapp.domain.models.Forecast
+import tgozdek.com.anotherweatherapp.ui.adapters.ForecastListAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,7 +41,12 @@ class MainActivity : AppCompatActivity() {
         doAsync {
             val forecastCommandResponse = RequestForecastCommand("94043").execute()
             uiThread {
-                forecastList.adapter = ForecastListAdapter(forecastCommandResponse)
+                forecastList.adapter = ForecastListAdapter(forecastCommandResponse,
+                        object : ForecastListAdapter.OnItemClickListener{
+                            override fun invoke(forecast: Forecast){
+                                toast(forecast.date)
+                        }
+                })
             }
         }
     }

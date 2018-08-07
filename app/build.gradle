@@ -40,6 +40,9 @@ dependencies {
 
     //Gradle
     compile "com.google.code.gson:gson:2.8.1"
+
+    //Picasso image downloader
+    compile "com.squareup.picasso:picasso:2.5.2"
 }
 repositories {
     mavenCentral()
