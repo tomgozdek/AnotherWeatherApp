@@ -1,4 +1,4 @@
-package tgozdek.com.anotherweatherapp.activities
+package tgozdek.com.anotherweatherapp.ui.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
-import tgozdek.com.anotherweatherapp.adapters.ForecastListAdapter
+import tgozdek.com.anotherweatherapp.ui.adapters.ForecastListAdapter
 import tgozdek.com.anotherweatherapp.R
 import tgozdek.com.anotherweatherapp.domain.commands.RequestForecastCommand
 
