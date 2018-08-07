@@ -10,7 +10,6 @@ import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import tgozdek.com.anotherweatherapp.R
 import tgozdek.com.anotherweatherapp.domain.commands.RequestForecastCommand
-import tgozdek.com.anotherweatherapp.domain.models.Forecast
 import tgozdek.com.anotherweatherapp.ui.adapters.ForecastListAdapter
 
 class MainActivity : AppCompatActivity() {
@@ -41,12 +40,7 @@ class MainActivity : AppCompatActivity() {
         doAsync {
             val forecastCommandResponse = RequestForecastCommand("94043").execute()
             uiThread {
-                forecastList.adapter = ForecastListAdapter(forecastCommandResponse,
-                        object : ForecastListAdapter.OnItemClickListener{
-                            override fun invoke(forecast: Forecast){
-                                toast(forecast.date)
-                        }
-                })
+                forecastList.adapter = ForecastListAdapter(forecastCommandResponse, {toast(it.date)})
             }
         }
     }
