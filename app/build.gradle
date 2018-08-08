@@ -36,6 +36,7 @@ dependencies {
     //Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compile "org.jetbrains.anko:anko-common:$anko_version"
+    compile "org.jetbrains.anko:anko-sqlite:$anko_version"
     testCompile 'junit:junit:4.12'
 
     //Gradle
