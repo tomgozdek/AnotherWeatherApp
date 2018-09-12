@@ -36,9 +36,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun showWeatherInfo(forecastList: RecyclerView) {
         doAsync {
-            val forecastCommandResponse = RequestForecastCommand("Warsaw,pl").execute()
+            val forecastCommandResponse = RequestForecastCommand(94043).execute()
             uiThread {
-                forecastList.adapter = ForecastListAdapter(forecastCommandResponse, {toast(it.date)})
+                forecastList.adapter = ForecastListAdapter(forecastCommandResponse, {toast(it.description)})
             }
         }
     }

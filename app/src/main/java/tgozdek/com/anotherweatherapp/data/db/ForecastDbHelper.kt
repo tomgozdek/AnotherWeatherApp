@@ -1,10 +1,12 @@
 package tgozdek.com.anotherweatherapp.data.db
 
+import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import org.jetbrains.anko.db.*
 import tgozdek.com.anotherweatherapp.ui.App
 
-class ForecastDbHelper() : ManagedSQLiteOpenHelper(App.instance, ForecastDbHelper.DB_NAME, null, ForecastDbHelper.DB_VERSION) {
+class ForecastDbHelper(context: Context = App.instance) : ManagedSQLiteOpenHelper(context, ForecastDbHelper.DB_NAME, null,
+        ForecastDbHelper.DB_VERSION) {
     companion object {
         const val DB_NAME = "forecast.db"
         const val DB_VERSION = 1

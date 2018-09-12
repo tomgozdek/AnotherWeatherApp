@@ -10,6 +10,8 @@ import tgozdek.com.anotherweatherapp.R
 import tgozdek.com.anotherweatherapp.domain.models.Forecast
 import tgozdek.com.anotherweatherapp.domain.models.ForecastList
 import tgozdek.com.anotherweatherapp.ui.utils.ctx
+import java.text.DateFormat
+import java.util.*
 
 class ForecastListAdapter(private val weekForecast: ForecastList, private val itemClick: (Forecast) -> Unit) : RecyclerView
 .Adapter<ForecastListAdapter.ViewHolder>() {
@@ -28,13 +30,18 @@ class ForecastListAdapter(private val weekForecast: ForecastList, private val it
 
         fun bindForecast(forecast: Forecast) = with(forecast){
             Picasso.with(itemView.ctx).load(iconUrl).into(itemView.icon)
-            itemView.date.text = date
+            itemView.date.text = convertDate(date)
             itemView.description.text = description
             itemView.minTemperature.text = "${low}º"
             itemView.maxTemperature.text = "${high}º"
             itemView.setOnClickListener {
                 itemClick(this)
             }
+        }
+
+        private fun convertDate(date: Long): String {
+            val dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+            return dateFormat.format(date)
         }
     }
 }

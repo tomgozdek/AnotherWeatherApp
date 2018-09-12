@@ -3,7 +3,7 @@ package tgozdek.com.anotherweatherapp.data
 import com.google.gson.Gson
 import java.net.URL
 
-class ForecastRequest(private val cityName : String){
+class ForecastRequest(private val zipCode : Long){
 
     companion object {
         private const val APP_ID = "15646a06818f61f7b8d7823ca833e1ce"
@@ -12,7 +12,7 @@ class ForecastRequest(private val cityName : String){
 
     }
     fun execute() : ForecastResult {
-        val forecastResponseJson = URL(COMPLETE_URL+cityName).readText()
+        val forecastResponseJson = URL(COMPLETE_URL + zipCode).readText()
         return Gson().fromJson(forecastResponseJson,ForecastResult::class.java)
     }
 }

@@ -4,10 +4,10 @@ import tgozdek.com.anotherweatherapp.data.ForecastRequest
 import tgozdek.com.anotherweatherapp.domain.ForecastDataMapper
 import tgozdek.com.anotherweatherapp.domain.models.ForecastList
 
-class RequestForecastCommand(private val cityName : String) : Command<ForecastList>{
+class RequestForecastCommand(private val cityZip : Long) : Command<ForecastList>{
     override fun execute(): ForecastList {
-        val forecastRequest = ForecastRequest(cityName)
-        return ForecastDataMapper().convertFromDataModel(forecastRequest.execute())
+        val forecastRequest = ForecastRequest(cityZip)
+        return ForecastDataMapper().convertFromDataModel(cityZip, forecastRequest.execute())
     }
 
 }
