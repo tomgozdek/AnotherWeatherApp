@@ -6,7 +6,7 @@ import tgozdek.com.anotherweatherapp.ui.utils.DelegatesExt
 class App : Application() {
 
     companion object {
-        var instance: App by DelegatesExt.notNullSingleValue()
+        lateinit var instance: App
     }
 
     override fun onCreate() {

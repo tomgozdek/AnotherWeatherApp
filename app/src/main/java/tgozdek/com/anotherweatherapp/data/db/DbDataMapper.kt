@@ -6,6 +6,7 @@ import tgozdek.com.anotherweatherapp.domain.models.ForecastList
 class DbDataMapper {
     fun convertToDomain(forecast: CityForecast) = with(forecast){
         val daily = dailyForecast.map { convertToDomain(it) }
+        ForecastList(_id, city, country, daily);
     }
 
     private fun convertToDomain(dayForecast: DayForecast) = with(dayForecast){
